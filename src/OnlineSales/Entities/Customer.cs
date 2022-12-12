@@ -34,4 +34,12 @@ public class Customer : BaseEntity
     public int? Timezone { get; set; }
 
     public string? Culture { get; set; }
+
+    public CustomerType Type { get; set; }
+}
+
+public enum CustomerType
+{
+    Trial = 0,
+    Paid = 1,
 }
