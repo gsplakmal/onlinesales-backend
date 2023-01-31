@@ -61,7 +61,7 @@ public class OrdersTests : TableWithFKTests<Order, TestOrder, OrderUpdateDto>
         int numberOfItems = 10;
 
         var populateAttributes = (TestOrder order) =>
-        {            
+        {
             order.AffiliateName = (index / 2).ToString();
             index++;
         };
@@ -129,7 +129,7 @@ public class OrdersTests : TableWithFKTests<Order, TestOrder, OrderUpdateDto>
         result = await GetTest<List<Order>>(itemsUrl + string.Format("?filter[where][Id][neq]={0}", numberOfItems / 2));
         result.Should().NotBeNull();
         result!.Count.Should().Be(numberOfItems - 1);
-                
+
         result = await GetTest<List<Order>>(itemsUrl + string.Format("?filter[where][Id][gte]={0}", numberOfItems / 2));
         result.Should().NotBeNull();
         result!.Count.Should().Be(1 + (numberOfItems / 2));
@@ -140,7 +140,7 @@ public class OrdersTests : TableWithFKTests<Order, TestOrder, OrderUpdateDto>
 
         result = await GetTest<List<Order>>(itemsUrl + "?filter[where][or][Id][lte]=2&filter[where][or][Id][gte]=9");
         result.Should().NotBeNull();
-        result!.Count.Should().Be(4);        
+        result!.Count.Should().Be(4);
     }
 
     [Fact]
@@ -229,6 +229,17 @@ public class OrdersTests : TableWithFKTests<Order, TestOrder, OrderUpdateDto>
                 updatedOrder.CurrencyTotal.Should().Be(order.CurrencyTotal);
             }
         }
+    }
+
+    [Fact]
+    public async Task ImportFileWithoutContactId()
+    {
+        await CreateFKItem();
+        await PostImportTest(itemsUrl, "ordersNoFK.csv");
+
+        var addedOrder = App.GetDbContext() !.Orders!.First(o => o.Id == 1);
+        addedOrder.Should().NotBeNull();
+        addedOrder.ContactId.Should().Be(1);
     }
 
     protected override async Task<(TestOrder, string)> CreateItem(string uid, int fkId)
