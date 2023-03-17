@@ -27,14 +27,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.5.0" />
+    <PackageReference Include="MailKit" Version="3.6.0" />
     <!-- Insert additional references above this line -->
   </ItemGroup>
 
   <!--This ItemGroup is required to support migration generating with the "dotnet ef migrations add" command-->
   <ItemGroup Condition="'$(Configuration)'=='Migration'">
     <ProjectReference Include="..\..\src\OnlineSales\OnlineSales.csproj" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
