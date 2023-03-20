@@ -37,6 +37,9 @@ public abstract class BaseContactDto
 
     [Optional]
     public string? Language { get; set; }
+
+    [Optional]
+    public int? UnsubscribeId { get; set; }
 }
 
 public class ContactCreateDto : BaseContactDto
