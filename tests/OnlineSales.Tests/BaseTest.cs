@@ -2,10 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the samples root for full license information.
 // </copyright>
 
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using CsvHelper;
+using CsvHelper.Configuration;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using OnlineSales.DTOs;
@@ -20,6 +23,11 @@ public class BaseTest : IDisposable
 
     protected readonly HttpClient client;
     protected readonly IMapper mapper;
+
+    static BaseTest()
+    {
+        AssertionOptions.AssertEquivalencyUsing(e => e.Using(new RelaxedEnumEquivalencyStep()));
+    }
 
     public BaseTest()
     {
@@ -95,6 +103,32 @@ public class BaseTest : IDisposable
             CheckForRedundantProperties(content);
 
             return JsonHelper.Deserialize<T>(content);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    protected async Task<List<TI>?> GetTestCSV<TI>(string url, HttpStatusCode expectedCode = HttpStatusCode.OK, string authToken = "Success")
+    where TI : class
+    {
+        var response = await GetTest(url, expectedCode, authToken);
+
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (expectedCode == HttpStatusCode.OK)
+        {
+            TextReader tr = new StringReader(content);
+            var reader = new CsvReader(tr, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                PrepareHeaderForMatch = (args) => char.ToLower(args.Header[0]) + args.Header.Substring(1),
+                MissingFieldFound = null,
+                HeaderValidated = null,
+            });
+
+            var res = reader.GetRecords<TI>();
+            return res.ToList();
         }
         else
         {

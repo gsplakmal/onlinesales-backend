@@ -128,7 +128,7 @@ public abstract class SimpleTableTests<T, TC, TU> : BaseTest
         if (createTestItem)
         {
             await CreateItem();
-        }       
+        }
 
         var response = await GetTest($"{this.itemsUrl}?{filter}");
         response.Should().NotBeNull();
@@ -162,7 +162,7 @@ public abstract class SimpleTableTests<T, TC, TU> : BaseTest
     }
 
     [Theory]
-    [InlineData("filter[limit]=550", 150)]
+    [InlineData("filter[limit]=15001", 150)]
     public async Task InvalidLimit(string filter, int dataCount)
     {
         GenerateBulkRecords(dataCount);

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineSales.Data;
@@ -13,9 +14,11 @@ using OnlineSales.Entities;
 namespace OnlineSales.Migrations
 {
     [DbContext(typeof(PgDbContext))]
-    partial class PgDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230320185905_AddMxCheck")]
+    partial class AddMxCheck
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,16 +36,12 @@ namespace OnlineSales.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CityName")
+                    b.Property<string>("City")
                         .HasColumnType("text")
-                        .HasColumnName("city_name");
+                        .HasColumnName("city");
 
-                    b.Property<int?>("ContinentCode")
-                        .HasColumnType("integer")
-                        .HasColumnName("continent_code");
-
-                    b.Property<int?>("CountryCode")
-                        .HasColumnType("integer")
+                    b.Property<string>("CountryCode")
+                        .HasColumnType("text")
                         .HasColumnName("country_code");
 
                     b.Property<DateTime>("CreatedAt")
@@ -86,9 +85,9 @@ namespace OnlineSales.Migrations
                         .HasColumnType("text")
                         .HasColumnName("source");
 
-                    b.Property<string>("State")
+                    b.Property<string>("StateCode")
                         .HasColumnType("text")
-                        .HasColumnName("state");
+                        .HasColumnName("state_code");
 
                     b.Property<string[]>("Tags")
                         .HasColumnType("jsonb")
@@ -294,18 +293,6 @@ namespace OnlineSales.Migrations
                     b.Property<string>("Address2")
                         .HasColumnType("text")
                         .HasColumnName("address2");
-
-                    b.Property<string>("CityName")
-                        .HasColumnType("text")
-                        .HasColumnName("city_name");
-
-                    b.Property<int?>("ContinentCode")
-                        .HasColumnType("integer")
-                        .HasColumnName("continent_code");
-
-                    b.Property<int?>("CountryCode")
-                        .HasColumnType("integer")
-                        .HasColumnName("country_code");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
