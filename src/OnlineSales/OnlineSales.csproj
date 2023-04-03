@@ -7,7 +7,7 @@
     <RootNamespace>OnlineSales</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UserSecretsId>98270385-43f2-4d3c-98d5-02d0d77fc2d9</UserSecretsId>
-    <ReleaseVersion>1.2.0-pre</ReleaseVersion>
+    <ReleaseVersion>1.2.1-pre</ReleaseVersion>
     <AssemblyName>OnlineSales</AssemblyName>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>OnlineSales</PackageId>
@@ -53,7 +53,7 @@
     <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
